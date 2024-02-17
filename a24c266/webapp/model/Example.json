@@ -1,0 +1,14 @@
+{
+    "Name":"Logali",
+    "Surname":"Logali",
+    "ToContacts":[
+        {
+            "Email":"logali@logaligroup.com",
+            "Phone":"1234567890"
+        },
+        {
+            "Email":"logali2@logaligroup.com",
+            "Phone":"123456789012"
+        }
+    ]
+}

@@ -1,0 +1,40 @@
+<mvc:View 
+        controllerName="a24c266.controller.App"
+        xmlns="sap.m"
+        xmlns:mvc="sap.ui.core.mvc">
+
+    <Shell id="shell">
+        <App id="app">
+            <pages>
+                <Page id="page" title="{i18n>title}">
+                    <content>
+                        <Panel headerText="{i18n>}">
+                            <content>
+                            
+                                <Button type="Emphasized"
+                                        text="{i18n>showHelloButtonText}"
+                                        tooltip="{i18n>showHelloButtonText}"
+                                        class="sapUiSmallMarginEnd"
+                                        press="onShowMessage"
+                                        width="4rem"/>
+
+                                <Input value="{example>/Name}"
+                                        description="{example>/Name}"
+                                        class="sapUiSmallMarginEnd"
+                                        valueLiveUpdate="true"
+                                        width="40%"/>
+
+                                <Text text="{example>/Name}"
+                                        class="boldElement"/>
+                            
+                            </content>
+                        </Panel>
+                    </content>
+                </Page>
+            </pages>
+        </App>
+    </Shell>
+
+
+
+</mvc:View>

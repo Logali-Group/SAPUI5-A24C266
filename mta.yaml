@@ -1,0 +1,81 @@
+_schema-version: "3.2"
+ID: A24C266-I
+version: 0.0.1
+modules:
+- name: a24c266-i-approuter
+  type: approuter.nodejs
+  path: a24c266-i-approuter
+  requires:
+  - name: A24C266-I_html_repo_runtime
+  - name: uaa_A24C266-I
+  - name: A24C266-I-destination-service
+    group: destinations
+    properties:
+      forwardAuthToken: false
+      name: ui5
+      url: https://ui5.sap.com
+  parameters:
+    disk-quota: 256M
+    memory: 256M
+- name: A24C266-I_ui_deployer
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: A24C266-I_html_repo_host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - a24c266.zip
+      name: a24c266
+      target-path: resources/
+- name: a24c266
+  type: html5
+  path: a24c266
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: A24C266-I_html_repo_runtime
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-runtime
+- name: uaa_A24C266-I
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: A24C266-I-xsuaa-service
+    service-plan: application
+- name: A24C266-I_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-host
+- name: A24C266-I-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: false
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: A24C266-I-destination-service
+    service-plan: lite
+parameters:
+  deploy_mode: html5-repo
